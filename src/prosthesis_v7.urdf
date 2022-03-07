@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="prosthesis_v7">
+        <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <link name="world"/>
+  <joint name="floating" 
+      type="floating">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="world" />
+    <child
+      link="adapter" />
+  </joint>
+  <link
+    name="adapter">
+    <inertial>
+      <origin
+        xyz="0.027201 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.134" />
+      <inertia ixx="6.9655" ixy="0" ixz="0" iyy="6.8873" iyz="0" izz="6.8873"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/adapter.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/adapter.STL" />
+      </geometry>
+    </collision>
+  </link>
+<link
+    name="main_body">
+    <inertial>
+      <origin
+        xyz="0.0678604262434105 0.004621025446902 -0.00126618683923124"
+        rpy="0 0 0" />
+      <mass
+        value="0.373" />
+      <inertia ixx="51.806189975737" ixy="4.07202173408674E-01" ixz="-3.85336478792924E-01" iyy="65.9756666816077" iyz="8.86998650829263E-03" izz="80.3034701315829"/>
+
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/main_body.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/main_body.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="adapter_mainbody"
+    type="fixed">
+    <origin
+      xyz="0.0181 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="adapter" />
+    <child
+      link="main_body" />
+    <axis
+      xyz="1 0 0" />
+
+    <dynamics
+      damping="0.7"
+      friction="10" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="500"
+      velocity="0.5" />
+  </joint>
+<link
+    name="gripper_1">
+    <inertial>
+      <origin
+        xyz="0.0703356839277527 0.0216460730674284 0.000697793934491306"
+        rpy="0 0 0" />
+      <mass
+        value="0.176" />
+      <inertia ixx="7.70064671027886" ixy="-2.98465954977971" ixz="-5.28467514617999E-01" iyy="14.7003655479629" iyz="6.33471173599547E-01" izz="16.2844359183692"/>
+      <!-- <inertia
+        ixx="1"
+        ixy="0.00001"
+        ixz="0.00001"
+        iyy="1"
+        iyz="0.00001"
+        izz="1" /> -->
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/gripper_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/gripper_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="gripper_1">
+   <mu1>10</mu1>
+   <mu2>10</mu2>
+    <maxVel>0.1</maxVel>
+    <minDepth>0.0</minDepth>
+    <kp>1000000.0</kp>
+    <kd>1000.0</kd> 
+    <maxContacts>100</maxContacts>
+    <material>Gazebo/RedBright</material>
+</gazebo>
+  <joint
+    name="mainbody_gripper1"
+    type="fixed">
+    <origin
+      xyz="0.11899 -0.012009 0"
+      rpy="0 0 0" />
+    <parent
+      link="main_body" />
+    <child
+      link="gripper_1" />
+    <axis
+      xyz="0 1 0" />
+    <dynamics
+      damping="0.7"
+      friction="10" />
+    <limit
+      lower="-0.3"
+      upper="0.3"
+      effort="500"
+      velocity="0.5" />
+   <dynamics damping="0.2"/>
+  </joint>
+<link
+    name="gripper_2">
+    <inertial>
+      <origin
+        xyz="0.0216560544173399 -0.0281417635655206 -0.000241877989679583"
+        rpy="0 0 0" />
+      <mass
+        value="0.059" />
+      <inertia ixx="2.6134210308757" ixy="1.57926101726433E-01" ixz="-1.14775635744684E-02" iyy="2.02841725416992" iyz="-7.99167025851584E-3" izz="1.67392621010039"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/gripper_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/gripper_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+<gazebo reference="gripper_2">
+   <mu1>10</mu1>
+   <mu2>10</mu2>
+    <maxVel>0.1</maxVel>
+    <minDepth>0.0</minDepth>
+    <kp>1000000.0</kp>
+    <kd>1000.0</kd> 
+    <maxContacts>100</maxContacts>
+    <material>Gazebo/RedBright</material>
+</gazebo>
+  <joint
+    name="gripper1_gripper2"
+    type="revolute">
+    <origin
+      xyz="0.06751 0.012382 0"
+      rpy="0 0 0" />
+    <parent
+      link="gripper_1" />
+    <child
+      link="gripper_2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.7"
+      upper="0.1"
+      effort="500"
+      velocity="0.5" />
+   <dynamics damping="0.2"/>  
+  </joint>
+  <gazebo reference="gripper1_gripper2">
+   <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo> 
+  <link
+    name="gripper_3">
+    <inertial>
+      <origin
+        xyz = "0.0137210191799407 -0.0197310802730022 0.0300894864038028"
+        rpy="0 0 0" />
+      <mass
+        value="0.013" />
+      <inertia ixx="3.87502525769473" ixy="-1.272351396878E-01" ixz="-2.31744794706911E-01" iyy="3.7987604362592" iyz="-3.34632456603083E-03" izz="1.96479165878774"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/gripper_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/gripper_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="gripper_3">
+   <mu1>10</mu1>
+   <mu2>10</mu2>
+    <maxVel>0.1</maxVel>
+    <minDepth>0.0</minDepth>
+    <kp>1000000.0</kp>
+    <kd>1000.0</kd> 
+    <maxContacts>100</maxContacts>
+    <material>Gazebo/RedBright</material>
+</gazebo>
+  <joint
+    name="gripperpart1_gripperpart2"
+    type="revolute">
+    <origin
+      xyz="0.051795 -0.019246 -0.02775"
+      rpy="0 0 0" />
+    <parent
+      link="gripper_2" />
+    <child
+      link="gripper_3" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics damping="0.2"/>
+    <limit
+      lower="0"
+      upper="0.3"
+      effort="50"
+      velocity="0.5" />
+  </joint>
+    <gazebo reference="gripperpart1_gripperpart2">
+   <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo> 
+<link
+    name="gripper_4">
+    <inertial>
+      <origin
+        xyz="0.0145761568637078 -0.0115326184264372 0.0265375476613998"
+        rpy="0 0 0" />
+      <mass
+        value="0.007" />
+      <inertia ixx="8.19149675504644E-02" ixy="3.98026897473949E-04" ixz="-1.40970339088244E-02" iyy="1.37681509548291E-01" iyz="1.06929333388983E-03" izz="8.10164438258772E-02"/>
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/gripper_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/gripper_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+<gazebo reference="gripper_4">
+  <mu1>10</mu1>
+  <mu2>10</mu2>
+  <maxVel>0.1</maxVel>
+  <minDepth>0.0</minDepth>
+  <kp>1000000.0</kp>
+  <kd>1000.0</kd> 
+  <maxContacts>100</maxContacts>
+  <material>Gazebo/RedBright</material>
+</gazebo>
+
+
+  <joint
+    name="gripperpart2_gripperpart_3"
+    type="revolute">
+    <origin
+      xyz="0.029311 -0.0081419 0.010169"
+      rpy="0 0 0" />
+    <parent
+      link="gripper_3" />
+    <child
+      link="gripper_4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0.3"
+      effort="50"
+      velocity="0.5" />
+    <dynamics damping="0.2"/>
+  </joint>
+  <gazebo reference="gripperpart2_gripperpart_3">
+   <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+
+
+	<!-- Depth camera -->
+
+  <link name="camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    	<box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh
+          filename="package://prosthesis_v7/meshes/kinect.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.0 0.0 0.8" />
+      </material>
+    </visual>
+
+    <inertial>
+      <mass value="0.01" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <gazebo reference="camera_link">
+    <sensor type="depth" name="camera1">
+      <update_rate>20.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.0472</horizontal_fov>
+        <image>
+          <width>320</width>
+          <height>240</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>6</far>
+        </clip>
+      </camera>
+
+ <!--          <plugin name='camera_controller' filename='libgazebo_ros_camera.so'>
+            <always_on>1</always_on>
+            <cameraName>camera</cameraName>
+            <imageTopicName>image_raw</imageTopicName>
+            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            <frameName>camera</frameName>
+            <update_rate>0.0</update_rate>
+            <visualize>1</visualize>
+          </plugin> -->
+          <plugin name='camera_plugin' filename='libgazebo_ros_openni_kinect.so'>
+            <baseline>0.2</baseline>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>camera_ir</cameraName>
+            <imageTopicName>/camera/color/image_raw</imageTopicName>
+            <cameraInfoTopicName>/camera/color/camera_info</cameraInfoTopicName>
+            <depthImageTopicName>/camera/depth/image_raw</depthImageTopicName>
+            <depthImageCameraInfoTopicName>/camera/depth/camera_info</depthImageCameraInfoTopicName>
+            <pointCloudTopicName>/camera/depth/points</pointCloudTopicName>
+            <frameName>camera_link</frameName>
+            <pointCloudCutoff>0.5</pointCloudCutoff>
+            <pointCloudCutoffMax>5.0</pointCloudCutoffMax>
+            <distortionK1>0</distortionK1>
+            <distortionK2>0</distortionK2>
+            <distortionK3>0</distortionK3>
+            <distortionT1>0</distortionT1>
+            <distortionT2>0</distortionT2>
+            <CxPrime>0</CxPrime>
+            <Cx>0</Cx>
+            <Cy>0</Cy>
+            <focalLength>0</focalLength>
+            <hackBaseline>0</hackBaseline>
+          </plugin>
+    </sensor>
+  </gazebo>
+
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.05 0 0.1" rpy="0 0 0"/>
+    <parent link="main_body"/>
+    <child link="camera_link"/>
+  </joint>
+
+
+
+
+
+
+<transmission name="trans_baselink_adapter">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="baselink_adapter">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="baselink_adapter_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_adapter_mainbody">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="adapter_mainbody">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="adapter_mainbody_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_mainbody_gripper1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="mainbody_gripper1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="mainbody_gripper1_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_gripper1_gripper2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gripper1_gripper2">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="gripper1_gripper2_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_gripperpart1_gripperpart2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gripperpart1_gripperpart2">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="gripperpart1_gripperpart2_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_gripperpart2_gripperpart_3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gripperpart2_gripperpart_3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="gripperpart2_gripperpart_3_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <gazebo>
+      <plugin name="gazebo_simple_controller" filename= "libgazebo_simple_controller.so">
+          <updateRate>0</updateRate>
+          <robotNamespace>/</robotNamespace>
+          <bodyName>main_body</bodyName>
+          <maxForce>50</maxForce>
+          <maxTorque>1000</maxTorque>
+
+          <rollProportionalGain>100</rollProportionalGain>
+          <roll_velProportionalGain>80</roll_velProportionalGain>
+          <rollDifferentialGain>50</rollDifferentialGain>
+
+
+          <pitchProportionalGain>100</pitchProportionalGain>
+          <pitch_velProportionalGain>50</pitch_velProportionalGain>
+
+          <pitchDifferentialGain>50</pitchDifferentialGain>
+
+          <yawProportionalGain>100</yawProportionalGain>
+          <yaw_velProportionalGain>50</yaw_velProportionalGain>
+          <yawDifferentialGain>50</yawDifferentialGain>
+
+         
+          <positionxProportionalGain>20</positionxProportionalGain>
+          <positionxDifferentialGain>10</positionxDifferentialGain>
+          <positionxIntegralGain>0.1</positionxIntegralGain>
+          <velocityXYProportionalGain>10</velocityXYProportionalGain>
+          <positionxTimeConstant>0.1</positionxTimeConstant>
+        
+          <positionzProportionalGain>80</positionzProportionalGain>
+          <velocityZProportionalGain>20</velocityZProportionalGain>
+          <positionzDifferentialGain>30</positionzDifferentialGain>
+          <positionzIntegralGain>1</positionzIntegralGain>
+ <!--         <positionzTimeConstant>0.1</positionxTimeConstant> -->
+	</plugin>
+    </gazebo>
+ 
+</robot>

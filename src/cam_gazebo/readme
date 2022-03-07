@@ -1,0 +1,5 @@
+how to launch it?
+	roslaunch cam_gazebo cam.launch
+public topics:
+	/camera/image_raw
+	

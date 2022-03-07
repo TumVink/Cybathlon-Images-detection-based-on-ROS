@@ -1,0 +1,84 @@
+//global variables
+geometry_msgs::Point ball_center_2d;
+
+
+void BoxCallback(const depth_proc::BoundingBoxes& BB)
+{	
+
+	depth_proc::BoundingBox r;
+	ROS_INFO_STREAM("BB comes");
+	int i=0;
+	for(i;i<2;i++)
+	{	
+		ROS_INFO_STREAM("loop comes");
+		r = BB.bounding_boxes[i];	
+		ROS_INFO_STREAM("id:"<< r.id);
+		if(r.id==39)  // 39-can
+		{
+			ball_center_2d.x = (r.xmin+r.xmax)/2;
+			ball_center_2d.y = (r.ymin+r.ymax)/2;	
+			ROS_INFO_STREAM("detected");
+		}
+	}
+
+}
+
+
+void DepthCallback(const sensor_msgs::PointCloud2& p) {
+/*
+    // Get a pointer to the depth values casting the data
+    // pointer to floating point
+    float* depths = (float*)(&p->data[0]);
+
+    // Image coordinates of the center pixel
+    int u = p->width / 2;
+    int v = p->height / 2;
+
+    // Linear index of the center pixel
+    int centerIdx = u + p->width * v;
+
+    // Output the measure
+    ROS_INFO("Center distance : %g m", depths[centerIdx]);
+*/
+	//ROS_INFO_STREAM("pc comes");
+}
+
+
+/**
+ * Node main function
+ */
+int main(int argc, char** argv) {
+    // Node initialization
+    ros::init(argc, argv, "depth_proc");
+    ros::NodeHandle n;
+
+    // Depth topic subscriber
+    ros::Subscriber subPoints = n.subscribe("/camera/depth/points", 3,
+                                           DepthCallback);
+	ros::Subscriber subBox = n.subscribe("/darknet_ros/bounding_boxes", 3,
+                                           BoxCallback);
+	ros::Publisher pubCenter = n.advertise<geometry_msgs::Point>("/can_center",100);
+
+	ros::Rate loop_rate(10);  
+
+  	while (ros::ok())
+  	{
+
+		ball_center_2d.z=0.0;
+		ROS_INFO_STREAM("pub");
+		//while(pubCenter.getNumSubscribers()<=0){}
+    	pubCenter.publish(ball_center_2d);
+		ROS_INFO_STREAM("pub");
+    	ros::spinOnce();
+    	loop_rate.sleep();
+  	}
+
+	
+	//while(pubCenter.getNumSubscribers()<=0){}
+	//
+	//pubCenter.publish(ball_center_2d);
+
+    ros::spin();
+
+    return 0;
+}
